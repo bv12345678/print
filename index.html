@@ -52,7 +52,7 @@
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 20mm; /* Defines uniform top, bottom, left, and right print margins for every printed page */
+                margin: 15mm; /* Clean uniform print margin */
             }
 
             html, body {
@@ -64,8 +64,8 @@
                 print-color-adjust: exact !important;
             }
 
-            /* Hide interactive UI elements */
-            .no-print {
+            /* Hide interactive UI elements strictly */
+            header, .no-print, nav, sidebar, #customModal {
                 display: none !important;
             }
 
@@ -83,13 +83,13 @@
                 box-shadow: none !important;
                 border: none !important;
                 border-radius: 0 !important;
-                padding: 0 !important; /* Rely on @page margin for exact print margins */
+                padding: 0 !important; /* Managed by @page margin */
                 margin: 0 !important;
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
 
-            /* Keep section blocks intact across page breaks where appropriate */
+            /* Prevent header breaking across pages */
             .page-break-inside-avoid {
                 break-inside: avoid;
                 page-break-inside: avoid;
@@ -100,7 +100,7 @@
 <body class="bg-slate-100 font-sans text-slate-800 min-h-screen flex flex-col">
 
     <!-- Custom Modal Container for System Messages (Replaces alert) -->
-    <div id="customModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center z-50 hidden p-4">
+    <div id="customModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center z-50 hidden p-4 no-print">
         <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-6 space-y-4 border border-slate-200">
             <div class="flex items-center gap-3 text-amber-600">
                 <i class="fa-solid fa-circle-exclamation text-2xl"></i>
@@ -144,7 +144,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 space-y-3">
                     <h2 class="text-base font-bold font-heading text-slate-800 flex items-center gap-2 border-b pb-2">
                         <i class="fa-solid fa-user text-indigo-600"></i>
-                        1. שם
+                        1. שם / כותרת
                     </h2>
                     <div>
                         <input type="text" id="docName" placeholder="הכנס שם / כותרת..." 
@@ -157,7 +157,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 space-y-4">
                     <h2 class="text-base font-bold font-heading text-slate-800 flex items-center gap-2 border-b pb-2">
                         <i class="fa-solid fa-text-height text-indigo-600"></i>
-                        2. גודל גופן (טקסט)
+                        2. בקרת גודל גופנים
                     </h2>
                     
                     <!-- Title Font Size Slider -->
@@ -185,7 +185,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 space-y-3">
                     <h2 class="text-base font-bold font-heading text-slate-800 flex items-center gap-2 border-b pb-2">
                         <i class="fa-solid fa-align-right text-indigo-600"></i>
-                        3. פרטים
+                        3. פרטים / תוכן
                     </h2>
                     <div>
                         <textarea id="docDetails" rows="6" placeholder="הכנס את הפרטים כאן..." 
@@ -198,7 +198,7 @@
                 <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 space-y-3">
                     <h2 class="text-base font-bold font-heading text-slate-800 flex items-center gap-2 border-b pb-2">
                         <i class="fa-solid fa-image text-indigo-600"></i>
-                        4. תמונה
+                        4. העלאת תמונה
                     </h2>
                     
                     <!-- Upload Box -->
@@ -255,8 +255,8 @@
                         </div>
                     </div>
 
-                    <!-- Footer for Print/PDF -->
-                    <div class="border-t border-slate-200 pt-4 mt-8 flex justify-end items-center text-xs text-slate-400 page-break-inside-avoid">
+                    <!-- Footer for Print/PDF (Only Date displayed) -->
+                    <div class="border-t border-slate-200 pt-4 mt-8 flex justify-end items-center text-xs text-slate-500 page-break-inside-avoid">
                         <span id="currentDateDisplay"></span>
                     </div>
 
