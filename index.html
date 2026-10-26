@@ -30,33 +30,41 @@
     </script>
     
     <style>
-        /* A4 Page Simulation Styling */
+        /* A4 Page Simulation Styling for Screen Preview */
         .a4-page {
             width: 210mm;
             min-height: 297mm;
             background: white;
             box-sizing: border-box;
             margin: 0 auto;
+            padding: 20mm;
         }
 
         @media screen and (max-width: 850px) {
             .a4-page {
                 width: 100%;
                 min-height: auto;
+                padding: 1.5rem;
             }
         }
 
-        /* Styles dedicated strictly for Printing / Saving as PDF */
+        /* Print / PDF Export Styles */
         @media print {
+            @page {
+                size: A4 portrait;
+                margin: 20mm; /* Defines uniform top, bottom, left, and right print margins for every printed page */
+            }
+
             html, body {
                 background: white !important;
                 padding: 0 !important;
                 margin: 0 !important;
+                width: 100% !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
 
-            /* Hide everything that is NOT the document preview */
+            /* Hide interactive UI elements */
             .no-print {
                 display: none !important;
             }
@@ -70,27 +78,22 @@
             }
 
             .a4-page {
-                width: 210mm !important;
-                min-height: 297mm !important;
+                width: 100% !important;
+                min-height: 0 !important;
                 box-shadow: none !important;
                 border: none !important;
                 border-radius: 0 !important;
-                padding: 15mm !important;
-                margin: 0 auto !important;
+                padding: 0 !important; /* Rely on @page margin for exact print margins */
+                margin: 0 !important;
                 box-sizing: border-box !important;
                 overflow: visible !important;
             }
 
-            @page {
-                size: A4 portrait;
-                margin: 0;
+            /* Keep section blocks intact across page breaks where appropriate */
+            .page-break-inside-avoid {
+                break-inside: avoid;
+                page-break-inside: avoid;
             }
-        }
-
-        /* Ensure smooth overflow breaking for multi-page print */
-        .page-break-inside-avoid {
-            break-inside: avoid;
-            page-break-inside: avoid;
         }
     </style>
 </head>
@@ -231,7 +234,7 @@
                 </div>
 
                 <!-- Simulating A4 Document Surface -->
-                <div class="a4-page shadow-a4 border border-slate-200 p-8 sm:p-12 flex flex-col justify-between rounded-sm relative transition-all duration-300">
+                <div class="a4-page shadow-a4 border border-slate-200 flex flex-col justify-between rounded-sm relative transition-all duration-300">
                     
                     <div class="space-y-6">
                         <!-- Document Header (Name) -->
